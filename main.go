@@ -19,7 +19,7 @@ var (
 	linePat = regexp.MustCompile(` *(\w+ \d+, \d+ @ \d+:\d+:\d+\.\d+)\s+([\w\.]+)\s+(\d+)\s+:\s+(.*)`)
 	timePat = `Jan 2, 2006 15:04:05.000`
 
-	maxMsgLength = 500
+	maxMsgLength = 10000
 	minTime      = 0
 	multiplier   = 40
 )
@@ -27,6 +27,7 @@ var (
 const (
 	red   = "\033[1;31m"
 	green = "\033[1;32m"
+	cyan  = "\033[1;36m"
 	reset = "\033[0m"
 )
 
@@ -102,7 +103,7 @@ func main() {
 			fmt.Printf("%v%v|%v\n", red, pad, reset)
 			prev = l
 		}
-		fmt.Printf("%v, %v %v: %v\n", l.Time.String(), l.Caller, l.LineNo, l.Message)
+		fmt.Printf("%v%v%v, %v %v: %v\n", cyan, l.Time.String(), reset, l.Caller, l.LineNo, l.Message)
 	}
 	fmt.Printf("\n\nTotal: %vms\n\n", total)
 }
