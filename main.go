@@ -21,6 +21,13 @@ var (
 
 	maxMsgLength = 500
 	minTime      = 0
+	multiplier   = 40
+)
+
+const (
+	red   = "\033[1;31m"
+	green = "\033[1;32m"
+	reset = "\033[0m"
 )
 
 func main() {
@@ -83,11 +90,11 @@ func main() {
 				continue
 			}
 
-			calc := int((float64(gap) / float64(max)) * 30)
+			calc := int((float64(gap) / float64(max)) * float64(multiplier))
 			pad := strings.Repeat("-", calc)
-			fmt.Printf("%v|\n", pad)
-			fmt.Printf("%v| > took: %vms (%.2f%%)\n", pad, gap, float64(gap)/float64(total)*100)
-			fmt.Printf("%v|\n", pad)
+			fmt.Printf("%v%v|%v\n", red, pad, reset)
+			fmt.Printf("%v%v|%v > took: %vms (%.2f%%)%v\n", red, pad, green, gap, float64(gap)/float64(total)*100, reset)
+			fmt.Printf("%v%v|%v\n", red, pad, reset)
 			prev = l
 		}
 		fmt.Printf("%v, %v %v: %v\n", l.Time.String(), l.Caller, l.LineNo, l.Message)
