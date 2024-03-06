@@ -31,6 +31,11 @@ const (
 )
 
 func main() {
+	flag.Usage = func() {
+		fmt.Print("Kibnana Format: | Time | MessageBody | ...\n\n")
+		fmt.Printf("Usage of %v\n", os.Args[0])
+		flag.PrintDefaults()
+	}
 	flag.Parse()
 	if *file == "" {
 		print("file is required")
